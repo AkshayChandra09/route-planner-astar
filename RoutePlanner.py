@@ -1,6 +1,7 @@
 import math
 import heapq
 from MapsData import Map_10, Map_40
+from queue import PriorityQueue
 
 
 class Node:
@@ -9,7 +10,7 @@ class Node:
         self.x = coordinates[0]
         self.y = coordinates[1]
         self.parent = parent
-        self.f_value = None
+        self.f_value = 0
         self.g_value = None
         self.h_value = None
 
@@ -45,14 +46,13 @@ def is_visited(value, visited_nodes):
 def shortest_path(map, start, goal):
     frontier = []
     explored = []
-
     start_node = Node(start, map.intersections[start])
     goal_node = Node(goal, map.intersections[goal])
     heapq.heappush(frontier, (0, start_node))
+
     while len(frontier) > 0:
         current_node = heapq.heappop(frontier)[1]
         explored.append(current_node)
-
         if current_node == goal_node:
             path = []
             while current_node != start_node:
@@ -68,15 +68,15 @@ def shortest_path(map, start, goal):
             node = Node(neighbor, map.intersections[neighbor], current_node)
             node.g_value = get_distance(current_node, node)  # path cost
             node.h_value = get_distance(node, goal_node)  # estimated distance
-            node.f_value = node.g_value + node.h_value  # F value
+            node.f_value = current_node.f_value + node.g_value + node.h_value  # F value
             # heapq.heappush(frontier, (node.f_value, node))
-            if add_to_frontier(frontier, node):
+            if add_to_nodes_list(frontier, node):
                 heapq.heappush(frontier, (node.f_value, node))
     return None
 
 
-def add_to_frontier(frontier, neighbor):
-    for node in frontier:
+def add_to_nodes_list(nodes_list, neighbor):
+    for node in nodes_list:
         if neighbor == node[1] and neighbor.f_value >= node[1].f_value:
             return False
     return True
@@ -92,6 +92,10 @@ sp = shortest_path(map, 5, 25)
 print("Shortest path is: {}".format(sp))
 
 # test case 3
+sp = shortest_path(map, 5, 28)
+print("Shortest path is: {}".format(sp))
+
+# test case 4
 sp = shortest_path(map, 8, 24)
 print("Shortest path is: {}".format(sp))
 
