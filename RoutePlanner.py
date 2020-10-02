@@ -1,5 +1,7 @@
-import math, heapq
+import math
+import heapq
 from MapsData import Map_10, Map_40
+
 
 class Node:
     def __init__(self, node_number, coordinates, parent=0):
@@ -25,6 +27,7 @@ class Node:
 
 
 def get_distance(from_node, to_node):
+    # math.dist is new in Python 3.8
     # eu_distance = math.dist(from_node.get_location(), to_node.get_location())
     # return eu_distance
     a = (from_node.x - to_node.x) ** 2
@@ -73,11 +76,11 @@ def shortest_path(map, start, goal):
 
 
 def add_to_frontier(frontier, neighbor):
-    # print(neighbor.node_number)
     for node in frontier:
         if neighbor == node[1] and neighbor.f_value >= node[1].f_value:
             return False
     return True
+
 
 map = Map_40()
 # test case 1
