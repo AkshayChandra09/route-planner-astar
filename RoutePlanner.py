@@ -1,6 +1,5 @@
 import math, heapq
 from MapsData import Map_10, Map_40
-from helpers import Map, load_map, show_map
 
 class Node:
     def __init__(self, node_number, coordinates, parent=0):
@@ -80,21 +79,18 @@ def add_to_frontier(frontier, neighbor):
             return False
     return True
 
-# map = Map_40()
+map = Map_40()
 # test case 1
-# sp = shortest_path(map, 5, 34)
-# print("Shortest path is: {}".format(sp))
+sp = shortest_path(map, 5, 34)
+print("Shortest path is: {}".format(sp))
+
+# test case 2
+sp = shortest_path(map, 5, 25)
+print("Shortest path is: {}".format(sp))
 
 # test case 3
-# sp = shortest_path(map, 5, 25)
-# print("Shortest path is: {}".format(sp))
-
-# test case 3
-# sp = shortest_path(map, 8, 24)
-# print("Shortest path is: {}".format(sp))
-
-map_10 = load_map('map-10.pickle')
-show_map(map_10)
+sp = shortest_path(map, 8, 24)
+print("Shortest path is: {}".format(sp))
 
 
 
