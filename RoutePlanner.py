@@ -1,7 +1,6 @@
 import math
 import heapq
-from MapsData import Map_10, Map_40
-from queue import PriorityQueue
+from MapsData import Map_40
 
 
 class Node:
